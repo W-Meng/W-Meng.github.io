@@ -95,7 +95,7 @@
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/WX20170418-145949@2x.png">
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/WX20170418-151804@2x.png">
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/nginx_003.gif">
-<meta property="og:updated_time" content="2017-04-18T08:04:49.000Z">
+<meta property="og:updated_time" content="2017-04-18T08:10:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac搭建nginx+remp服务器">
 <meta name="twitter:description" content="通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流">
@@ -326,13 +326,13 @@
       
         <pre><code>通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流
 </code></pre><a id="more"></a>
-<p>#一、安装 Homebrew<br>打开终端,查看是否已经安装了 Homebrew,直接终端命令</p>
+<p>##一、安装 Homebrew<br>打开终端,查看是否已经安装了 Homebrew,直接终端命令</p>
 <pre><code>man brew
 </code></pre><p>如果Mac已经安装了,会显示一些命令的帮助信息.此时输入Q退出即可,直接进入第二步.反之,如果没有安装,执行命令</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre><p>卸载 Homebrew 命令</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;
-</code></pre><p>#二、安装 nginx<br>clone nginx项目到本地</p>
+</code></pre><p>##二、安装 nginx<br>clone nginx项目到本地</p>
 <pre><code>brew tap homebrew/nginx
 </code></pre><p>执行安装</p>
 <pre><code>brew install nginx-full --with-rtmp-module
@@ -340,7 +340,7 @@
 <pre><code>nginx
 </code></pre><p>在浏览器里打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></p>
 <p>如果出现下图,则表示安装成功<br><img src="http://ooarjqul6.bkt.clouddn.com/WX20170418-145949@2x.png" alt="安装成功"></p>
-<p>#三、配置 nginx 和 rtmp<br>首先查看 nginx 安装位置</p>
+<p>##三、配置 nginx 和 rtmp<br>首先查看 nginx 安装位置</p>
 <pre><code>brew info nginx-full
 </code></pre><p>如图,找到 nginx.conf 文件所在的位置<br><img src="http://ooarjqul6.bkt.clouddn.com/WX20170418-151804@2x.png" alt="文件位置"><br>cd 到文件所在目录下. 输入命令,编辑 nginx.conf 文件</p>
 <pre><code>vim nginx.conf
@@ -357,7 +357,7 @@ rtmp {
 }
 </code></pre><p>然后重启 nginx (其中的1.10.3要换成你自己安装的 nginx 版本号, 查看版本号用 nginx -v 命令即可)</p>
 <pre><code>/usr/local/Cellar/nginx-full/1.10.3/bin/nginx -s reload
-</code></pre><p>#四、安装 ffmpeg<br>执行命令</p>
+</code></pre><p>##四、安装 ffmpeg<br>执行命令</p>
 <pre><code>brew install ffmpeg
 </code></pre><p>安装 ffmpeg 时间就要长一点了. 如果速度过慢,建议翻墙. 等待的时间里,再安装一个支持 rtmp 协议的视频播放器 VLC</p>
 <p>ffmpeg 推流</p>
