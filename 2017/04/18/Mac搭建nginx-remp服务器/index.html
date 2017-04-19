@@ -2,8 +2,10 @@
 
 
 
+  
 
-<html class="theme-next muse" lang="zh-Hans">
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -69,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="nginx," />
+  <meta name="keywords" content="nginx,rtmp,直播," />
 
 
 
@@ -85,20 +87,20 @@
 
 
 
-<meta name="description" content="通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流">
-<meta name="keywords" content="nginx">
+<meta name="description" content="通过搭建 nginx+remp 本地服务器实现视频推流">
+<meta name="keywords" content="nginx,rtmp,直播">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mac搭建nginx+remp服务器">
 <meta property="og:url" content="wmeng.info/2017/04/18/Mac搭建nginx-remp服务器/index.html">
 <meta property="og:site_name" content="WMeng Blog">
-<meta property="og:description" content="通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流">
+<meta property="og:description" content="通过搭建 nginx+remp 本地服务器实现视频推流">
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/WX20170418-145949@2x.png">
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/WX20170418-151804@2x.png">
 <meta property="og:image" content="http://ooarjqul6.bkt.clouddn.com/nginx_003.gif">
-<meta property="og:updated_time" content="2017-04-18T08:23:27.000Z">
+<meta property="og:updated_time" content="2017-04-18T11:28:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mac搭建nginx+remp服务器">
-<meta name="twitter:description" content="通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流">
+<meta name="twitter:description" content="通过搭建 nginx+remp 本地服务器实现视频推流">
 <meta name="twitter:image" content="http://ooarjqul6.bkt.clouddn.com/WX20170418-145949@2x.png">
 
 
@@ -110,7 +112,7 @@
     scheme: 'Muse',
     sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    motion: false,
+    motion: true,
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -204,22 +206,22 @@
         </li>
       
         
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            分类
-          </a>
-        </li>
-      
-        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
           </a>
         </li>
       
@@ -346,14 +348,14 @@
       
 
       
-        <p>通过搭建 nginx+remp 服务器实现 iOS 直播 demo 的视频推流<br><a id="more"></a></p>
-<h2 id="一、安装-Homebrew"><a href="#一、安装-Homebrew" class="headerlink" title="一、安装 Homebrew"></a>一、安装 Homebrew</h2><p>打开终端,查看是否已经安装了 Homebrew,直接终端命令</p>
+        <p>通过搭建 nginx+remp 本地服务器实现视频推流<br><a id="more"></a></p>
+<h1 id="安装-Homebrew"><a href="#安装-Homebrew" class="headerlink" title="安装 Homebrew"></a>安装 Homebrew</h1><p>打开终端,查看是否已经安装了 Homebrew,直接终端命令</p>
 <pre><code>man brew
 </code></pre><p>如果Mac已经安装了,会显示一些命令的帮助信息.此时输入Q退出即可,直接进入第二步.反之,如果没有安装,执行命令</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
 </code></pre><p>卸载 Homebrew 命令</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&quot;
-</code></pre><h2 id="二、安装-nginx"><a href="#二、安装-nginx" class="headerlink" title="二、安装 nginx"></a>二、安装 nginx</h2><p>clone nginx项目到本地</p>
+</code></pre><h1 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h1><p>clone nginx项目到本地</p>
 <pre><code>brew tap homebrew/nginx
 </code></pre><p>执行安装</p>
 <pre><code>brew install nginx-full --with-rtmp-module
@@ -361,7 +363,7 @@
 <pre><code>nginx
 </code></pre><p>在浏览器里打开<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></p>
 <p>如果出现下图,则表示安装成功<br><img src="http://ooarjqul6.bkt.clouddn.com/WX20170418-145949@2x.png" alt="安装成功"></p>
-<h2 id="三、配置-nginx-和-rtmp"><a href="#三、配置-nginx-和-rtmp" class="headerlink" title="三、配置 nginx 和 rtmp"></a>三、配置 nginx 和 rtmp</h2><p>首先查看 nginx 安装位置</p>
+<h1 id="配置-nginx-和-rtmp"><a href="#配置-nginx-和-rtmp" class="headerlink" title="配置 nginx 和 rtmp"></a>配置 nginx 和 rtmp</h1><p>首先查看 nginx 安装位置</p>
 <pre><code>brew info nginx-full
 </code></pre><p>如图,找到 nginx.conf 文件所在的位置<br><img src="http://ooarjqul6.bkt.clouddn.com/WX20170418-151804@2x.png" alt="文件位置"><br>cd 到文件所在目录下. 输入命令,编辑 nginx.conf 文件</p>
 <pre><code>vim nginx.conf
@@ -378,7 +380,7 @@ rtmp {
 }
 </code></pre><p>然后重启 nginx (其中的1.10.3要换成你自己安装的 nginx 版本号, 查看版本号用 nginx -v 命令即可)</p>
 <pre><code>/usr/local/Cellar/nginx-full/1.10.3/bin/nginx -s reload
-</code></pre><h2 id="四、安装-ffmpeg"><a href="#四、安装-ffmpeg" class="headerlink" title="四、安装 ffmpeg"></a>四、安装 ffmpeg</h2><p>执行命令</p>
+</code></pre><h1 id="安装-ffmpeg"><a href="#安装-ffmpeg" class="headerlink" title="安装 ffmpeg"></a>安装 ffmpeg</h1><p>执行命令</p>
 <pre><code>brew install ffmpeg
 </code></pre><p>安装 ffmpeg 时间就要长一点了. 如果速度过慢,建议翻墙. 等待的时间里,再安装一个支持 rtmp 协议的视频播放器 VLC</p>
 <p>ffmpeg 推流</p>
@@ -386,7 +388,7 @@ rtmp {
 <pre><code>ffmpeg -re -i /Users/wangmeng/Desktop/loginmovie.mp4  -vcodec libx264 -acodec aac -strict -2 -f flv rtmp://localhost:1935/rtmplive/room
 </code></pre><p>将视频推流到服务器后，打开VLC，然后File-&gt;open network-&gt;输入：</p>
 <pre><code>rtmp://localhost:1935/rtmplive/room
-</code></pre><p>效果如图<br><img src="http://ooarjqul6.bkt.clouddn.com/nginx_003.gif" alt="最终效果"><br>至此, nginx+rtmp 本地服务器推流实现.</p>
+</code></pre><p>效果如图<br><img src="http://ooarjqul6.bkt.clouddn.com/nginx_003.gif" alt="最终效果"><br>至此, nginx+rtmp 本地服务器视频推流实现.</p>
 
       
     </div>
@@ -417,6 +419,10 @@ rtmp {
         <div class="post-tags">
           
             <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/rtmp/" rel="tag"># rtmp</a>
+          
+            <a href="/tags/直播/" rel="tag"># 直播</a>
           
         </div>
       
@@ -515,7 +521,7 @@ rtmp {
             
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
@@ -526,17 +532,6 @@ rtmp {
         
 
         <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/W-Meng" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
           
         </div>
 
@@ -561,7 +556,7 @@ rtmp {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、安装-Homebrew"><span class="nav-number">1.</span> <span class="nav-text">一、安装 Homebrew</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、安装-nginx"><span class="nav-number">2.</span> <span class="nav-text">二、安装 nginx</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、配置-nginx-和-rtmp"><span class="nav-number">3.</span> <span class="nav-text">三、配置 nginx 和 rtmp</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、安装-ffmpeg"><span class="nav-number">4.</span> <span class="nav-text">四、安装 ffmpeg</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-Homebrew"><span class="nav-number">1.</span> <span class="nav-text">安装 Homebrew</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-nginx"><span class="nav-number">2.</span> <span class="nav-text">安装 nginx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置-nginx-和-rtmp"><span class="nav-number">3.</span> <span class="nav-text">配置 nginx 和 rtmp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-ffmpeg"><span class="nav-number">4.</span> <span class="nav-text">安装 ffmpeg</span></a></li></ol></div>
             
 
           </div>
